@@ -1,30 +1,27 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
-import sys
-import os
-import datetime
-from time import sleep
-import random
 import base64
+import datetime
+import os
+import random
+import sys
+from time import sleep
 
 import Adafruit_DHT
-
+import LoRaWAN
+import pyRadioHeadRF95 as radio
+from LoRaWAN.MHDR import MHDR
+from SX127x.board_config import BOARD
 from SX127x.LoRa import *
 from SX127x.LoRaArgumentParser import LoRaArgumentParser
-from SX127x.board_config import BOARD
-
-import LoRaWAN
-from LoRaWAN.MHDR import MHDR
 
 # Add path to pyRadioHeadiRF95 module
 sys.path.append(os.path.dirname(__file__) + "/../")
-import pyRadioHeadRF95 as radio
 
 rf95 = radio.RF95()
 
 rf95.init()
 
-#rf95.setTxPower(14, False)
 rf95.setTxPower(20, False)
 rf95.setFrequency(434)
 
@@ -93,8 +90,6 @@ def loop():
                     msg = lorawan.to_raw()
 
                     log("Raw packet: " + str(msg))
-                    # raw = bytearray(raw)
-                    # msg = base64.b64encode(raw)
 
                     rf95.send(msg, len(msg))
                     rf95.waitPacketSent()
@@ -117,4 +112,3 @@ def loop():
 
 if __name__ == '__main__':
     loop()
-
