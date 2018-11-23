@@ -14,4 +14,4 @@ The main purpose of this work is to put in practice the technologies seen during
 
 Here is an overview of our implementation:
 
-[implementation overview](docs/implementation_overview.png)
+![implementation overview](docs/implementation_overview.png)
