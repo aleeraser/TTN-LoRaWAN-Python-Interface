@@ -18,6 +18,8 @@ influx_client = InfluxDBClient(host=db_address, port=db_port, database=db_name, 
 def uplink_callback(msg, client):
 	print "Received uplink from: " + str(msg.dev_id)
 	print msg.payload_fields._fields
+	#print(msg.metadata)
+	#print(msg.metadata.gateways[0].rssi)
 
 	json_body = [{
         	"measurement": str(msg.dev_id),
@@ -25,6 +27,7 @@ def uplink_callback(msg, client):
             		"host": "ttn_listener",
         	},
         	"fields": {
+				'rssi': msg.metadata.gateways[0].rssi
         	}
     	}]	
 
